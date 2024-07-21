@@ -1,0 +1,55 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "3.1.3"
+    id "io.spring.dependency-management" version "1.1.3"
+}
+
+group = "com"
+version = "0.0.1"
+
+java {
+    sourceCompatibility = "17"
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    mapstructVersion = "1.5.5.Final"
+    lombokVersion = "1.18.20"
+    lombokMapstructBindingVersion = "0.2.0"
+    telegramBotVersion = "6.7.0"
+}
+
+dependencies {
+    // spring
+    implementation "org.springframework.boot:spring-boot-starter-web"
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}", "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+
+    // tg
+    implementation "org.telegram:telegrambots-spring-boot-starter:${telegramBotVersion}"
+    implementation "org.telegram:telegrambots-abilities:${telegramBotVersion}"
+
+    // db
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:3.1.3"
+    implementation "com.h2database:h2:2.2.220"
+
+    // mapper
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    // lombok
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // test
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
+}
